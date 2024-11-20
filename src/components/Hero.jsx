@@ -4,11 +4,14 @@ import { FaRegTrashCan } from "react-icons/fa6";
 import { nanoid } from 'nanoid';
 import { RiCheckboxBlankCircleLine } from "react-icons/ri";
 import { RiCheckboxCircleFill } from "react-icons/ri";
+import { CiLight } from "react-icons/ci";
+import { HiMoon } from "react-icons/hi";
 
 
 const Hero = () => {
 
   const [todoText, setTodoText] = React.useState('')
+  const [toggle, setToggle] = React.useState(true)
 
   const [tasks, setTasks] = React.useState(() => {
     const savedTasks = localStorage.getItem("tasks")
@@ -23,6 +26,9 @@ const Hero = () => {
     setTodoText( event.target.value )
   }
 
+  function modeChange() {
+    setToggle(!toggle)
+  }
   function addNewTask() {
     
     if(todoText){
@@ -54,8 +60,15 @@ const Hero = () => {
     <div>
 
         <div className='mt-10 px-6 max-w-2xl m-auto'>
-
-          <p className='text-3xl mb-4 font-semibold'>TODO</p>
+          <div className='flex justify-between '>
+            <p className='text-3xl mb-4 font-semibold tracking-widest w-full m-auto'>TODO</p>
+            
+            <div onClick={modeChange}>
+              {toggle? <CiLight size={25}/> : <HiMoon size={25}/>}
+            </div>
+            
+          </div>
+          
 
           <div className='flex'>
             <input 

@@ -35,6 +35,14 @@ const Hero = () => {
     setTasks(tasks.filter(task => task.id !== id))
   }
 
+  function clearAllTask() {
+    setTasks([])
+  }
+
+  function clearCompletedTask() {
+    setTasks(tasks.filter(task => task.completed === false))
+  }
+
   function checked(id){
     setTasks(tasks.map(task => task.id === id? {...task, completed: !task.completed} : task))
     console.log(id)
@@ -59,7 +67,7 @@ const Hero = () => {
               value={todoText}
             />
           
-            <button onClick={addNewTask} className='bg-cyan-300 ml-4 px-4 py-2 rounded-md ' >
+            <button onClick={addNewTask} className='bg-cyan-300 hover:bg-cyan-400 ml-4 px-4 py-2 rounded-md ' >
             <BsJournalPlus size={15}/>
             </button>
           </div>
@@ -71,10 +79,14 @@ const Hero = () => {
                   
                   <div className='flex items-center justify-between text-white border-none'>
                     <div onClick={() => checked(task.id)} className='flex items-center'>
-                      {task.completed? <RiCheckboxCircleFill size={25} className='mr-1'/> : <RiCheckboxBlankCircleLine size={25} className='mr-1'/>}
-                      {task.text}
+                      {task.completed? <RiCheckboxCircleFill size={25} className='mr-2 hover:cursor-pointer'/> : <RiCheckboxBlankCircleLine size={25} className='mr-2 hover:cursor-pointer'/>}
+                      <div className='hover:cursor-pointer '>
+                        { task.completed? <div className='line-through text-gray-400'>{task.text}</div> :
+                        <div>{task.text}</div>}
+                      </div>
+                      
                     </div>
-                    <FaRegTrashCan onClick={() => deleteTask(task.id)} size={15} className='text-cyan-300'/>
+                    <FaRegTrashCan onClick={() => deleteTask(task.id)} size={15} className='text-cyan-300 hover:cursor-pointer hover:text-cyan-200'/>
                     
                   </div>
                   
@@ -83,6 +95,12 @@ const Hero = () => {
                 
                 ))}
             </ul>
+          </div>
+          <div className='flex justify-between'>
+
+            <button onClick={clearCompletedTask} className='mt-6 text-gray-500 hover:text-gray-700 no-underline hover:underline'>Clear completed tasks</button>
+            <button onClick={clearAllTask} className='mt-6 text-gray-500 hover:text-gray-700 no-underline hover:underline'>Clear all tasks</button>
+
           </div>
         </div>
 

@@ -53,9 +53,7 @@ const Hero = () => {
     setTasks(tasks.map(task => task.id === id? {...task, completed: !task.completed} : task))
     console.log(id)
   }
-  console.log(tasks)
-// console.log(checked)
- 
+
   return (
     <div>
 
